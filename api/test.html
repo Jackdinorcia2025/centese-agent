@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Test Assistente Centese</title>
+</head>
+<body>
+
+<h2>Assistente Centese</h2>
+
+<input
+  id="msg"
+  style="width:400px"
+  placeholder="Fai una domanda..." />
+
+<button onclick="send()">
+Invia
+</button>
+
+<pre id="out"></pre>
+
+<script>
+async function send() {
+
+  const message =
+    document.getElementById("msg").value;
+
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message
+    })
+  });
+
+  const data = await res.json();
+
+  document.getElementById("out").textContent =
+    data.reply;
+}
+</script>
+
+</body>
+</html>
